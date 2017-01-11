@@ -95,3 +95,66 @@ git log
 1. Make changes
 2. Track changes: `git add -A`
 3. Commit changes: `git commit -m "Do something"`
+
+## 4. Clone a Remote Repository
+
+```powershell
+cd ..
+git clone https://github.com/dahlbyk/git-hands-on.git katas
+cd katas
+
+git status
+
+# What local branches do we have?
+git branch
+
+# What is 'origin/gh-pages'?
+git remote -v
+git branch -r
+
+# What does it mean by "up-to-date"?
+# Local matches remote "upstream" or "tracked" branch.
+git config branch.gh-pages.remote
+git config branch.gh-pages.merge
+
+# Big picture?
+git log --oneline --graph --decorate
+```
+
+## 5. Push to a Remote Repository
+
+```powershell
+# Edit this line: my favorite number is π
+git commit -m "Fix favorite number"
+
+git status                      # Branch is ahead
+
+git log --oneline --graph --decorate
+
+# <aside>
+# Git has a few push modes, but the best is:
+git config --global push.default upstream
+# </asid
+
+# Let's share our favorite number
+git push
+```
+
+Oops! That didn't work because you don't have permission to push.
+
+1. [Create a GitHub account](https://github.com/join) and
+   [sign in](https://github.com/login?return_to=/dahlbyk/git-hands-on)
+
+2. From [this project on GitHub](https://github.com/dahlbyk/git-hands-on),
+   click the Fork button
+
+3. Once forking is complete, click the **Clone or download** button
+   and copy the HTTPS URL (e.g. `https://github.com/coridrew/git-hands-on.git`)
+
+```powershell
+# Now let's point origin at your fork
+git remote set-url origin https://github.com/coridrew/git-hands-on.git
+
+# And try pushing again
+git push
+```
