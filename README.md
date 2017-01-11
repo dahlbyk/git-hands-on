@@ -101,9 +101,20 @@ git log
 ```powershell
 cd ..
 git clone https://github.com/dahlbyk/git-hands-on.git katas
-cd katas
 
+# Let's see what we have
+cd katas
+ls .git
+open .
+
+# What does Git think it has?
 git status
+
+    # <internals>
+    git cat-file -p $(git rev-parse HEAD)
+    git cat-file -p "HEAD^{tree}"
+    git cat-file -p 176a458f94e0ea5272ce
+    # </internals>
 
 # What local branches do we have?
 git branch
