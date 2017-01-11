@@ -118,7 +118,7 @@ git config branch.gh-pages.remote
 git config branch.gh-pages.merge
 
 # Big picture?
-git log --oneline --graph --decorate
+gitk
 ```
 
 ## 5. Push to a Remote Repository
@@ -129,6 +129,7 @@ git commit -m "Fix favorite number"
 
 git status                      # Branch is ahead
 
+gitk
 git log --oneline --graph --decorate
 
 # <aside>
@@ -157,4 +158,50 @@ git remote set-url origin https://github.com/coridrew/git-hands-on.git
 
 # And try pushing again
 git push
+```
+
+## 6. Working Locally with Branches
+
+```powershell
+# Start work on feature 1
+git branch feature1             # Create branch from here
+git checkout feature1           # Switch to different branch
+
+git status
+touch feature1.md
+git add .
+git commit -m "Add feature 1"
+
+# Start work on feature 2
+touch feature2.md
+git add .
+git status
+
+# Oops, forgot to switch to new branch
+git checkout gh-pages -q
+git checkout -b feature2
+git commit -m "Add feature 2"
+
+gitk --branches
+
+# Start work on feature 3
+git checkout gh-pages -b feature3
+touch feature3.md
+# Get distracted by feature 4
+touch feature4.md
+
+# Oops, forgot to commit feature 3!
+git add .
+git status
+
+# Don't want to commit everything...
+git reset feature4.md           # reset path is opposite of add
+git status
+git commit -m "Add feature 3"
+
+git checkout gh-pages -b feature4
+git add .
+git commit -m "Add feature 4"
+
+gitk --branches
 ```
