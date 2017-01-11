@@ -254,19 +254,27 @@ git push origin HEAD
 # But notice we're missing "up-to-date"
 git status
 
+# And plain `git push` fails
+git push
+
 # Add -u to set the local branch's upstream
 git push -u origin HEAD
 git status
 
-# Typing is overrated, and that seems handy
-# pc = push current
+# Now plain `git push` works
+git push
+
+# Also, typing is overrated (pc = push current)
 git config --global alias.pc "push -u origin HEAD"
 git pc
 
 # Now let's pretend someone else is working
 # On your fork on GitHub:
 # 1. Use **Branch** dropdown to create `feature5`
-# 2. Use Branches list to delete `feature4`
+# 2. Use **Branch** dropdown to switch to feature1
+# 3. Click on `feature1.md`, then the pencil to edit
+# 4. Change something and commit changes directly to `feature1`
+# 5. Use Branches list to delete `feature4`
 
 # Nothing changes until we explicitly fetch:
 git branch -r
@@ -285,6 +293,11 @@ git status                      # upstream is gone!
 git branch -d feature4
 git branch -D feature4
 
+# We should also bring in changes from feature1
+git checkout feature1
+git status                      # behind!
+git pull                        # get latest & merge
+
 # Finally, let's work on feature5
 git checkout --track origin/feature5
 
@@ -295,4 +308,11 @@ git branch -D feature5
 # If a branch only exists on one remote,
 # Git will do the right thing
 git checkout feature5
+
+# Now let's add a file and push
+touch feature5
+git add .
+git commit -m "Add feature5"
+git push
+# Note that `git push` Just Works™
 ```
