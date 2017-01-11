@@ -215,3 +215,73 @@ git commit -m "Add feature 4"
 
 gitk --branches
 ```
+
+## 7. Working Remotely with Branches
+
+```powershell
+# First, let's add a remote for the parent repository...
+git remote add upstream https://github.com/dahlbyk/git-hands-on.git
+
+    # <internals>
+    ls .git/refs/remotes/
+    # </internals>
+
+# ...and get latest from GitHub
+git fetch --all
+
+    # <internals>
+    ls .git/refs/remotes/upstream/
+    cat .git/refs/remotes/upstream/gh-pages
+    # </internals>
+
+# Now let's share some code!
+git push origin feature1
+
+# We can also push the current branch
+git push origin HEAD
+
+# But notice we're missing "up-to-date"
+git status
+
+# Add -u to set the local branch's upstream
+git push -u origin HEAD
+git status
+
+# Typing is overrated, and that seems handy
+# pc = push current
+git config --global alias.pc "push -u origin HEAD"
+git pc
+
+# Now let's pretend someone else is working
+# On your fork on GitHub:
+# 1. Use **Branch** dropdown to create `feature5`
+# 2. Use Branches list to delete `feature4`
+
+# Nothing changes until we explicitly fetch:
+git branch -r
+git fetch --all
+
+# Why doesn't feature4 show as deleted?
+git remote prune origin
+git fetch --prune --all
+
+# Always want to prune?
+# git config fetch.prune = true
+# git config remote.<name>.prune = true
+
+# But we're still on feature4...interesting
+git status                      # upstream is gone!
+git branch -d feature4
+git branch -D feature4
+
+# Finally, let's work on feature5
+git checkout --track origin/feature5
+
+# Too much typing...let's try again
+git checkout master
+git branch -D feature5
+
+# If a branch only exists on one remote,
+# Git will do the right thing
+git checkout feature5
+```
