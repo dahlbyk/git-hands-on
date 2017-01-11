@@ -316,3 +316,30 @@ git commit -m "Add feature5"
 git push
 # Note that `git push` Just Works™
 ```
+
+## 8. Merging
+
+```powershell
+# When we pulled from `feature1` we saw "Fast-forward"
+# What does that mean? Let's try again.
+git checkout feature1
+
+# reset can also move HEAD (i.e. your branch) around
+# In this case, we move HEAD back one, to its parent
+# (See `git help revisions` for more tricks like ~)
+git reset --hard HEAD~
+
+# Now let's look at the commit graph
+gitk feature1 origin/feature1
+
+# Because local feature1 has nothing new, Git can fast-forward
+# But you can force it to create a merge commit
+git merge --no-ff origin/feature1
+
+# We can also merge local branches
+git merge feature2
+
+# And even multiple branches at once ("octopus merge")
+git reset --hard HEAD~2
+git merge origin/feature1 feature2 feature3
+```
