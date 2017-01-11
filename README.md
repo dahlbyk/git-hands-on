@@ -66,25 +66,25 @@ git status                      # Untracked files!
 git add -A                      # Track all changes
 git status                      # Changes!
 
-# <internals>
-ls .git/objects/
-ls .git/objects/e6/
-git cat-file -t e69de29bb2d1d6434b8b
-# </internals>
+    # <internals>
+    ls .git/objects/
+    ls .git/objects/e6/
+    git cat-file -t e69de29bb2d1d6434b8b
+    # </internals>
 
 git commit -m "Add empty README"
 
-# <internals>
-git cat-file -t f93e3a1a1525fb5b9102
-git cat-file -p f93e3a1a1525fb5b9102
+    # <internals>
+    git cat-file -t f93e3a1a1525fb5b9102
+    git cat-file -p f93e3a1a1525fb5b9102
 
-cat .git/HEAD
-ls .git/refs/heads/
-cat .git/refs/heads/master
+    cat .git/HEAD
+    ls .git/refs/heads/
+    cat .git/refs/heads/master
 
-git rev-parse HEAD
-git cat-file -p $(git rev-parse HEAD)
-# </internals>
+    git rev-parse HEAD
+    git cat-file -p $(git rev-parse HEAD)
+    # </internals>
 
 git show HEAD
 git log
@@ -167,10 +167,20 @@ git push
 git branch feature1             # Create branch from here
 git checkout feature1           # Switch to different branch
 
+    # <internals>
+    cat .git/HEAD
+    cat .git/refs/heads/feature1
+    # <internals>
+
 git status
 touch feature1.md
 git add .
 git commit -m "Add feature 1"
+
+    # <internals>
+    cat .git/HEAD
+    cat .git/refs/heads/feature1
+    # <internals>
 
 # Start work on feature 2
 touch feature2.md
